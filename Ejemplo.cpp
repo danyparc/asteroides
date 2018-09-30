@@ -5,7 +5,7 @@ int main()
 {
  int t;
  gfx_open(800, 600, "Ejemplo Micro Animacion GFX");
- gfx_color(0,200,100);
+ gfx_color(211, 35, 35);
  for(t = 0; t < 100; t++){
  gfx_clear();
  gfx_line( t*1+80, t*2+40, t*2+40, t*3+80 );
