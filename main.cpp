@@ -17,7 +17,8 @@ bool asteroideFuera(Asteroide &ast)
 	{
 		int x = ast.vertices[i].first;
 		int y = ast.vertices[i].second;
-		if ( (x <= tamx && x>=0) && (y <= tamy && y>=0) ) flag = false;
+		if ( (x <= tamx && x>=0) && (y <= tamy && y>=0) ) 
+			flag = false;
 	}
 	return flag;
 }
@@ -82,12 +83,16 @@ int main()
 {
 	srand(time(NULL));
 	int nAsteroides;
-	cout<<"Numero de asteroides: ";
+	cout<<"¿cuantos asteroides quieres generar?: ";
  	cin>>nAsteroides;
 	gfx_open(tamy, tamx, "Asteroides");
- 	gfx_color(0,200,100);
+ 	gfx_color(0,0,500);
  	vector<Asteroide> poblacion;
- 	for(int i = 0; i < nAsteroides; i++) poblacion.push_back(generarAsteroide());
+
+ 	for(int i = 0; i < nAsteroides; i++)
+ 		poblacion.push_back(generarAsteroide());
+ 	
+ 	//Inicia animacion
  	while(true)
  	{
  		gfx_clear();
