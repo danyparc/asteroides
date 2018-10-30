@@ -4,12 +4,11 @@
 #include <unistd.h>
 using namespace std;
 
-//Direcciones
-		int dx[] = {1,0,-1,-1,-1,0,1,1};
-		int dy[] = {1,1,1,0,-1,-1,-1,0};
+int dx[] = {1,0,-1,-1,-1,0,1,1};
+int dy[] = {1,1,1,0,-1,-1,-1,0};
 class Space{
 	public:		
-		int tamx = 1200, tamy = 1200;
+		int size_screen_x = 1200, size_screen_y = 1200;
 		int nAsteroids;
  		vector<Asteroid> asteroides;
 
@@ -22,7 +21,7 @@ class Space{
 
 		void start(){
 			srand(time(NULL));
-			gfx_open(tamy, tamx, "Asteroides");
+			gfx_open(size_screen_y, size_screen_x, "Asteroides");
 
 		 	for(int i = 0; i < nAsteroids; i++)
 		 		asteroides.push_back(createAsteroid());
@@ -38,7 +37,7 @@ class Space{
 		 				moveAsteroid(asteroides[i]);
 		 		}
 		 		gfx_flush();
-		 		usleep(19999); //24 por segundo
+		 		usleep(19999);
 		 	}
 
 		}
@@ -50,7 +49,7 @@ class Space{
 			{
 				int x = ast.vertices[i].first;
 				int y = ast.vertices[i].second;
-				if ( (x <= tamx && x>=0) && (y <= tamy && y>=0) ) 
+				if ( (x <= size_screen_x && x>=0) && (y <= size_screen_y && y>=0) ) 
 					flag = false;
 			}
 			return flag;
@@ -77,32 +76,32 @@ class Space{
 					y0 = 0;
 					break;
 				case 1:
-					x0 = rand() % tamx;
+					x0 = rand() % size_screen_x;
 					y0 = 0;
 					break;
 				case 2:
-					x0 = tamx;
+					x0 = size_screen_x;
 					y0 = 0;
 					break;
 				case 3:
-					x0 = tamx;
-					y0 = rand() % tamy;
+					x0 = size_screen_x;
+					y0 = rand() % size_screen_y;
 					break;
 				case 4:
-					x0 = int(tamx/2);
-					y0 = int(tamy/2);
+					x0 = int(size_screen_x/2);
+					y0 = int(size_screen_y/2);
 					break;
 				case 5:
-					x0 = rand() % tamx;
-					y0 = tamy;
+					x0 = rand() % size_screen_x;
+					y0 = size_screen_y;
 					break;
 				case 6:
 					x0 = 0;
-					y0 = tamy;
+					y0 = size_screen_y;
 					break;
 				case 7:
 					x0 = 0;
-					y0 = rand() % tamy;
+					y0 = rand() % size_screen_y;
 					break;
 			}
 			int dir = rand() % 8;

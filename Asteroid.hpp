@@ -4,7 +4,6 @@ using namespace std;
 class Asteroid{
 	public:
 		double dx,dy;
-		double giro;
 		vector< pair<double,double> > vertices;
 		Asteroid(double nVertex, double x0, double y0, double dirx, double diry, double size)
 		{
