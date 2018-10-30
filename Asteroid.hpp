@@ -65,18 +65,18 @@ class Asteroid{
 
 		void updateAsteroid()
 		{
-			pair<double,double> centroide = getCentroid();
+			pair<double,double> centroid = getCentroid();
 			for(int i = 0; i < vertices.size(); i++)
 			{
 				vertices[i].first += dx;
 				vertices[i].second += dy;
 
-				//Rotacion en torno a centroide
-				vertices[i].first -= centroide.first;
-				vertices[i].second -= centroide.second;
+				//Rotacion en torno a centroid
+				vertices[i].first -= centroid.first;
+				vertices[i].second -= centroid.second;
 				rotateVertex(i,10);
-				vertices[i].first += centroide.first;
-				vertices[i].second += centroide.second;
+				vertices[i].first += centroid.first;
+				vertices[i].second += centroid.second;
 			}
 
 		}
