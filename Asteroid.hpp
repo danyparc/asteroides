@@ -1,37 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class Asteroide
-{
+class Asteroid{
 	public:
 		double dx,dy;
 		double giro;
 		vector< pair<double,double> > vertices;
-		Asteroide(double nVertices, double x0, double y0, double dirx, double diry, double tam)
+		Asteroid(double nVertex, double x0, double y0, double dirx, double diry, double size)
 		{
-			dx = (dirx * 10) / tam;
-			dy = (diry * 10) / tam;
+			dx = (dirx * 10) / size;
+			dy = (diry * 10) / size;
 			dx += dirx;
 			dy += diry;
-			vector<double> angulos;
-			for(int i = 0; i < nVertices; i++)
+			vector<double> angles;
+			for(int i = 0; i < nVertex; i++)
 			{
-				angulos.push_back( (rand() % 361) *  M_PI/180);
+				angles.push_back( (rand() % 361) *  M_PI/180);
 			}
-			sort(angulos.begin(),angulos.end());
-			for(int i = 0; i < nVertices; i++)
+			sort(angles.begin(),angles.end());
+			for(int i = 0; i < nVertex; i++)
 			{
-				double x = x0 + tam*cos(angulos[i]); //cambiar r
-				double y = y0 + tam*sin(angulos[i]);
+				double x = x0 + size*cos(angles[i]); //cambiar r
+				double y = y0 + size*sin(angles[i]);
 				vertices.push_back(make_pair(x,y));
 			}
 		}
-		~Asteroide()
+		~Asteroid()
 		{
 			return;
 		}
 
-		void rotarVertice(double id,double grados)
+		void rotateVertex(double id,double grados)
 		{
 				double radianes = grados * M_PI / 180.0;
 				double x = vertices[id].first, y = vertices[id].second;
@@ -39,7 +38,7 @@ class Asteroide
 				vertices[id].second = x * sin(radianes) + y * cos(radianes);
 		}
 
-		pair<double,double> buscarCentroide()
+		pair<double,double> getCentroid()
 		{
 			double area = 0,aux = 0;
 			double x = 0, y = 0;
@@ -64,9 +63,9 @@ class Asteroide
 		}
 
 
-		void actualizarAsteroide()
+		void updateAsteroid()
 		{
-			pair<double,double> centroide = buscarCentroide();
+			pair<double,double> centroide = getCentroid();
 			for(int i = 0; i < vertices.size(); i++)
 			{
 				vertices[i].first += dx;
@@ -75,13 +74,13 @@ class Asteroide
 				//Rotacion en torno a centroide
 				vertices[i].first -= centroide.first;
 				vertices[i].second -= centroide.second;
-				rotarVertice(i,10);
+				rotateVertex(i,10);
 				vertices[i].first += centroide.first;
 				vertices[i].second += centroide.second;
 			}
 
 		}
-		void actualizarVertice(double id)
+		void updateVertex(double id)
 		{
 			vertices[id].first += dx;
 			vertices[id].second += dy;

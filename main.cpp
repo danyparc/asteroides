@@ -1,5 +1,5 @@
 #include "gfx.h"
-#include "Asteroide.hpp"
+#include "Asteroid.hpp"
 #include <bits/stdc++.h>
 #include <unistd.h>
 using namespace std;
@@ -10,7 +10,7 @@ int dy[] = {1,1,1,0,-1,-1,-1,0};
 
 int tamx = 600, tamy = 600;
 
-bool asteroideFuera(Asteroide &ast)
+bool asteroidOut(Asteroid &ast)
 {
 	bool flag = true;
 	for(int i = 0 ; i < ast.vertices.size(); i++)
@@ -23,10 +23,9 @@ bool asteroideFuera(Asteroide &ast)
 	return flag;
 }
 
-void moverAsteroide(Asteroide &ast)
-{
+void moveAsteroid(Asteroid &ast){
 	int n = ast.vertices.size();
-	ast.actualizarAsteroide();
+	ast.updateAsteroid();
 	for(int i = 0 ; i < n-1; i++)
 	{
 		 gfx_line(ast.vertices[i].first, ast.vertices[i].second, 
@@ -36,12 +35,10 @@ void moverAsteroide(Asteroide &ast)
 		    ast.vertices[0].first, ast.vertices[0].second);
 }
 
-Asteroide generarAsteroide()
-{
+Asteroid createAsteroid(){
 	int x0,y0;
 	int lado = rand() % 8;
-	switch(lado)
-	{
+	switch(lado){
 		case 0:
 		x0 = 0;
 		y0 = 0;
@@ -76,35 +73,37 @@ Asteroide generarAsteroide()
 		break;
 	}
 	int dir = rand() % 8;
-	return Asteroide(rand() % 30 + 10, x0,y0,dx[dir],dy[dir], rand() % 60 );
+	return Asteroid(rand() % 30 + 10, x0,y0,dx[dir],dy[dir], rand() % 60 );
 }
 
-int main()
-{
+int main(int argc, char *argv[]){
 	srand(time(NULL));
-	int nAsteroides;
-	cout<<"¿cuantos asteroides quieres generar?: ";
- 	cin>>nAsteroides;
+	int nAsteroids;
+	if(argc==2){
+		nAsteroids = atoi(argv[1]);
+	}else{
+		cout << "No hay argumentos" << endl;
+		cout << "Se generaran 50 Asteroides" << endl;
+		nAsteroids = 50;
+	}
 	gfx_open(tamy, tamx, "Asteroides");
  	gfx_color(0,0,500);
- 	vector<Asteroide> poblacion;
+ 	vector<Asteroid> asteroides;
 
- 	for(int i = 0; i < nAsteroides; i++)
- 		poblacion.push_back(generarAsteroide());
+ 	for(int i = 0; i < nAsteroids; i++)
+ 		asteroides.push_back(createAsteroid());
  	
- 	//Inicia animacion
- 	while(true)
- 	{
+ 	while(true){
  		gfx_clear();
- 		for(int i = 0; i < nAsteroides; i++)
+ 		for(int i = 0; i < nAsteroids; i++)
  		{
- 			if(asteroideFuera(poblacion[i]))
- 				poblacion[i] = generarAsteroide();
+ 			if(asteroidOut(asteroides[i]))
+ 				asteroides[i] = createAsteroid();
  			else
- 				moverAsteroide(poblacion[i]);
+ 				moveAsteroid(asteroides[i]);
  		}
  		gfx_flush();
- 		usleep(41666); //24 por segundo
+ 		usleep(19999); //24 por segundo
  	}
 
 }
